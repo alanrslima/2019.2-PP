@@ -1,0 +1,42 @@
+> Retorna a calda de uma lista
+tail [1,2,3]
+
+> Concatena duas listas
+[2,4] ++ [1,2,3]
+
+> Verifica se uma lista é vazia
+null []
+
+> Retorna o tipo de uma função
+:t <nome_da_funcao>
+
+> Retorna o último elemento de uma lista
+last [1,2,4,5]
+
+> Retorna uma lista sem o último elemento
+init [1,2,3,4]
+
+> Retorna a cabeça de ums lista
+head [1,2,3,4]
+
+> Retorna o tamanho de uma lista 
+length [1,2,3,4]
+
+> Apaga os x primeiros elementos de uma lista
+drop x [1,2,3,4,5]
+
+> Retorna os x primeiros elementos de uma lista
+take x [1,2,3,4]
+
+> Separa um texto pelos espaços em branco e retorna uma lista
+words "Escreva o texto"
+
+> Retorna o inverso de uma lista
+reverse [1,2,3,4]
+
+> Forma uma lista infinita
+repeat "Alan"
+
+> Corta uma string de acordo com o parâmetro passado e retorna uma tupla com duas strings cortadas
+splitAt 2 "Alan"
+
