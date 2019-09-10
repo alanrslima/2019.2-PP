@@ -6,21 +6,25 @@ import Data.Array
 
 
 
--- readTxtFile :: [Char] -> String
--- readTxtFile " " = return "Voce deve inserir o nome de um arquivo"
+readTxtFile  = "Voce deve inserir o nome de um arquivo"
 readFileLines file_name = do
         contents <- readFile file_name
         let lines_list = lines contents
-        let a = doWords lines_list
-        escreveArq (joinWordsList ( mdParser (head a)))
+        let lines = doWords lines_list
+        writeHtml (joinLines lines)
 
 doWords [] = []
 doWords list = words (head list): doWords (tail list)
 
+
+joinLines [] = []
+joinLines list =
+              ((joinWordsList ( mdParser (head list))))++ joinLines (tail list)
+
 mdParser [] = []
 mdParser wordList = if funcao (head wordList) == head wordList
                     then [head wordList]++  mdParser (tail wordList)
-                    else (funcao (head wordList): mdParser (tail wordList))++ ["</" ++ (tail (funcao (head wordList)))]
+                    else (funcao (head wordList): mdParser (tail wordList))++ ["</" ++ (tail (funcao (head wordList)))++ "\n"]
 
 -- Tags para titulo
 funcao "#" = "<h1>"
@@ -37,7 +41,7 @@ joinWordsList list =
               ((head list)++ " ")++ joinWordsList (tail list)
 
 
-escreveArq txt = do
+writeHtml txt = do
               arq <- openFile "out.html" WriteMode
               hPutStrLn arq (txt)
               hClose arq;
