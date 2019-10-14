@@ -1,8 +1,7 @@
 :- dynamic(father/2).
 :- dynamic(mother/2).
 :- dynamic(blood_type/2).
-
-familia([avôPaterno, avôMaterno, avóPaterna, avóMaterna, mae, pai, filho]).
+:- dynamic(chances/2).
 
 father(avôPaterno, pai).
 father(avôMaterno, mae).
@@ -13,6 +12,8 @@ mother(avóMaterna, mae).
 mother(mae, filho).
 
 blood_type(Antecessor, Blood).
+
+chances(Anyone, V).
 
 /**
 Okay, we need to transfer the rules of real life to the algorithm.
@@ -37,37 +38,37 @@ XxX |  +  |  -  |
 -----------------
 */
 askPai :-
-    write('Digite o tipo sanguíneo do seu Pai: '),
+    write('Digite o tipo sanguíneo do seu Pai: '),nl,
     read(X),
     assertz(blood_type(pai, X)).
 
 askMae :-
-    write('Digite o tipo sanguíneo da sua Mãe: '),
+    write('Digite o tipo sanguíneo da sua Mãe: '),nl,
     read(X),
     assertz(blood_type(mae, X)).
 
 askAvóP :-
-    write('Digite o tipo sanguíneo da sua Avó Paterna: '),
+    write('Digite o tipo sanguíneo da sua Avó Paterna: '),nl,
     read(X),
     assertz(blood_type(avóPaterna, X)).
 
 askAvôP :-
-    write('Digite o tipo sanguíneo do seu Avô Paterno: '),
+    write('Digite o tipo sanguíneo do seu Avô Paterno: '),nl,
     read(X),
     assertz(blood_type(avôPaterno, X)).
 
 askAvóM :-
-    write('Digite o tipo sanguíneo da sua Avó Materna: '),
+    write('Digite o tipo sanguíneo da sua Avó Materna: '),nl,
     read(X),
     assertz(blood_type(avóMaterna, X)).
 
 askAvôM :-
-    write('Digite o tipo sanguíneo do seu Avô Materno: '),
+    write('Digite o tipo sanguíneo do seu Avô Materno: '),nl,
     read(X),
     assertz(blood_type(avôMaterno, X)).
 
 menu :-
-    write('Bem vindo ao Menu. '),
+    write('Bem vindo ao Menu. '), nl,
     askAvôP,
     askAvóP,
     askPai,
@@ -75,11 +76,12 @@ menu :-
     askAvóM,
     askMae.
 
-define_bl_type(Person, Resul) :-
+define_chanceF(Person, Pos) :-
     father(A, Person),
     blood_type(A, Z),
-    mother(Y, Person),
-    blood_type(Y, V),
-    Z == 'A+',
-    V == 'B+',
-    Resul = 'AB+'.
+    nth0(Pos, ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'], Elem),
+    write(Elem),
+    Z == Elem,
+    assertz(chances(Person, Z)),
+    L = Pos + 1,
+    define_chanceF(Person, L).
