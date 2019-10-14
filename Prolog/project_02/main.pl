@@ -36,34 +36,44 @@ XxX |  +  |  -  |
  -  | +/- |  -  |
 -----------------
 */
-testePai :-
-    write('Digite o tipo sanguíneo do seu pai: '),
+askPai :-
+    write('Digite o tipo sanguíneo do seu Pai: '),
     read(X),
     assertz(blood_type(pai, X)).
-    /**write('Digite o tipo sanguíneo da sua mãe: '),
-    read(X),
-    blood_type(mae, X),
-    write('Digite o tipo sanguíneo do seu Avô Paterno: '),
-    read(X),
-    blood_type(avôPaterno, X),
-    write('Digite o tipo sanguíneo da sua Avó Paterna: '),
-    read(X),
-    blood_type(avóPaterna, X),
-    write('Digite o tipo sanguíneo do seu Avô Materno: '),
-    read(X),
-    blood_type(avôMaterno),
-    write('Digite o tipo sanguíneo da sua Avó Materna: '),
-    read(X),
-    blood_type(avóMaterna),
-    write('Digite o seu tipo sanguíneo: '),
-    read(X),
-    blood_type(filho, X).
-    */
 
-testeMae :-
-    write('Digite o tipo sanguíneo da sua mãe: '),
+askMae :-
+    write('Digite o tipo sanguíneo da sua Mãe: '),
     read(X),
     assertz(blood_type(mae, X)).
+
+askAvóP :-
+    write('Digite o tipo sanguíneo da sua Avó Paterna: '),
+    read(X),
+    assertz(blood_type(avóPaterna, X)).
+
+askAvôP :-
+    write('Digite o tipo sanguíneo do seu Avô Paterno: '),
+    read(X),
+    assertz(blood_type(avôPaterno, X)).
+
+askAvóM :-
+    write('Digite o tipo sanguíneo da sua Avó Materna: '),
+    read(X),
+    assertz(blood_type(avóMaterna, X)).
+
+askAvôM :-
+    write('Digite o tipo sanguíneo do seu Avô Materno: '),
+    read(X),
+    assertz(blood_type(avôMaterno, X)).
+
+menu :-
+    write('Bem vindo ao Menu. '),
+    askAvôP,
+    askAvóP,
+    askPai,
+    askAvôM,
+    askAvóM,
+    askMae.
 
 define_bl_type(Person, Resul) :-
     father(A, Person),
