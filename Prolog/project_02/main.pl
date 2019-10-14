@@ -80,8 +80,16 @@ define_chanceF(Person, Pos) :-
     father(A, Person),
     blood_type(A, Z),
     nth0(Pos, ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'], Elem),
-    write(Elem),
     Z == Elem,
     assertz(chances(Person, Z)),
     L = Pos + 1,
     define_chanceF(Person, L).
+
+define_chanceM(Person, Pos) :-
+    mother(A, Person),
+    blood_type(A, Z),
+    nth0(Pos, ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'], Elem),
+    Z == Elem,
+    assertz(chances(Person, Z)),
+    L = Pos + 1,
+    define_chanceM(Person, L).
